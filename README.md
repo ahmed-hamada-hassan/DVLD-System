@@ -191,5 +191,3 @@ Based on the project files, the following are required:
 * **Security:** Passwords are stored using hash and salt mechanisms for enhanced security
 
 ---
-
-*This README was auto-generated based on analysis of the DVLD solution structure and source code.*
