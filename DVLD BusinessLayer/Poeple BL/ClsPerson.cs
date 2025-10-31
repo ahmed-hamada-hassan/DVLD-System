@@ -53,6 +53,14 @@ namespace DVLD_BusinessLayer.PoepleBL
             this.ImagePath = "";
         }
 
-        
+        public byte GetAgeInYears()
+        {
+            DateTime now = DateTime.Now;
+            // 30/10/2007 - 31/10/2025
+            int age = now.Year - DateOfBirth.Year; // 18
+            // 31/10/205 < 30/10/2025 
+            if (now < DateOfBirth.AddYears(age)) age--;
+            return (byte)age;
+        }
     }
 }

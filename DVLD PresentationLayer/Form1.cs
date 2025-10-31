@@ -1,5 +1,6 @@
 ﻿using DVLD_BusinessLayer.Services;
 using DVLD_BusinessLayer.UserBL;
+using DVLD_PresentationLayer.Licenses;
 using DVLD_PresentationLayer.Properties;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace DVLD_PresentationLayer
                 txtUserName.Text = Properties.Settings.Default.UserName;
                 chkRememberMe.Checked = true;
             }
-
+            KeyPreview = true;
         }
         #endregion
 
@@ -186,6 +187,16 @@ namespace DVLD_PresentationLayer
         {
             btnTogglePassword.Visible = false;
         }
+        private void frmLoginScreen_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnLoginIN.PerformClick();
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+            }
+        }
         #endregion
+
     }
 }

@@ -36,19 +36,16 @@ namespace DVLD_PresentationLayer.Application_Types
         #endregion
 
         #region Constructors
-
         public frmNewLocalDrivingLicenseApplication()
         {
             InitializeComponent();
             _Mode = EnMode.NewApplication;
         }
-
         public frmNewLocalDrivingLicenseApplication(int LocalDrivingLicenseAppID) : this()
         {
             _Mode = EnMode.EditApplication;
             _LDLAPPID = LocalDrivingLicenseAppID;
         }
-
         private async void frmNewLocalDrivingLicenseApplication_Load(object sender, EventArgs e)
         {
             await Task.Yield();
@@ -76,7 +73,6 @@ namespace DVLD_PresentationLayer.Application_Types
                 await _FillFormToUpdate(_LDLAPPID);
             }
         }
-
         #endregion
 
         #region Private Methods
@@ -91,14 +87,12 @@ namespace DVLD_PresentationLayer.Application_Types
                                                                             _CurrentApplicationToEdit.ApplicationDate.ToString("dd/MM/yyyy HH:mm:ss tt");
                                                                             
         }
-        
         private async Task _ConfigureStaticSettingsOfForm()
         {
             lbCreatedByResult.Text = Program.CurrentUser.UserName;
             decimal Fees = await _AppBL.GetApplicationFeesByIDAsync(1);
             lbApplicationFeesResult.Text = string.Format("${0:N2}", Fees);
         }
-
         private async Task _PopulateLicenseClassesAsync()
         {
             var LicenseClasses = await _LicenseClassBL.GetLicenseClassesAsync();
@@ -107,12 +101,10 @@ namespace DVLD_PresentationLayer.Application_Types
             cbLicenseClass.ValueMember = "LicenseClassID";
             cbLicenseClass.SelectedValue = 1;
         }
-
         private void _ShowErroMessageBox(string Message , string Caption)
         {
             MessageBox.Show(Message, Caption,MessageBoxButtons.OK,MessageBoxIcon.Error);
         }
-
         private ClsApplication _GetApplicationInfo()
         {
             // Parse the date using the same format as displayed in the label
@@ -137,7 +129,6 @@ namespace DVLD_PresentationLayer.Application_Types
                 CreatedByUserID = Program.CurrentUser.UserID
             };
         }
-
         private async Task _AddNewApplication()
         {
             var NewApp = _GetApplicationInfo();
@@ -156,7 +147,6 @@ namespace DVLD_PresentationLayer.Application_Types
                 _ShowErroMessageBox("Failed to add new application. Please try again.", "Error");
 
         }
-
         private async Task _UpdateApplication()
         {
             var NewApp = _GetApplicationInfo();
@@ -174,7 +164,6 @@ namespace DVLD_PresentationLayer.Application_Types
                 _ShowErroMessageBox("Failed to update the application. Please try again.", "Error");
 
         }
-
         private async Task<(bool,string)> _CheckThatPersonHasTheSameClassAsync(int PersonID, int CurrentLicenseClassID)
         {
             if (await _ApplicationsBL.IsThisPersonHasApplicationWithTheSameLicenseClass(PersonID, CurrentLicenseClassID))
@@ -191,7 +180,6 @@ namespace DVLD_PresentationLayer.Application_Types
             }
             return (false,string.Empty);
         }
-
         private void _ResetForm()
         {
             try
@@ -213,7 +201,6 @@ namespace DVLD_PresentationLayer.Application_Types
                 _ShowErroMessageBox($"Error resetting form: {ex.Message}", "Reset Error");
             }
         }
-
         private void _AddAnotherApplication()
         {
             DialogResult result = MessageBox.Show("Do you want to add another application?", "Add Another",
@@ -223,7 +210,6 @@ namespace DVLD_PresentationLayer.Application_Types
             else
                 Close();
         }
-
         private async Task _FillFormToUpdate(int LocalDrivingLicenseApplicationID)
         {
             if (_CurrentApplicationToEdit == null) return;
@@ -232,26 +218,28 @@ namespace DVLD_PresentationLayer.Application_Types
             await _FillApplicationInfo();
             _CurrentPersonForApplication = uctrlAddNewUser1.CurrentPerson;
         }
-
         private async Task _FillApplicationInfo()
         {
             lbApplicationIDResult.Text = _CurrentApplicationToEdit.ApplicationID.ToString();
             cbLicenseClass.SelectedValue = await _ApplicationsBL.FindLicenseClassIDByApplicationIDAsync(_CurrentApplicationToEdit.ApplicationID);
             lbCreatedByResult.Text = (await _UserBL.GetUserInfoByUserIDAsync(_CurrentApplicationToEdit.CreatedByUserID)).UserName;
         }
-
-        
+        private async Task<(bool IsAgeValid, byte MinimumAgeRequired)> _CheckPersonAge()
+        {
+            var SelectedLicenseClassInfo = await _LicenseClassBL.GetLicenseClassesWithIDAsync((int)cbLicenseClass.SelectedValue);
+            byte MinimumAgeRequired = (byte)SelectedLicenseClassInfo.MinimumAllowedAge;
+            byte PersonAgeWithYears = uctrlAddNewUser1.CurrentPerson.GetAgeInYears();
+            return (PersonAgeWithYears >= MinimumAgeRequired, MinimumAgeRequired);
+        }
         #endregion
 
         #region Form's Event Handlers
-
         private async void btnCancel_Click(object sender, EventArgs e)
         {
             if(this.Owner is frmManageLocalDrivingLicenseApplications parentForm)
                 await parentForm.RefreshLocalDrivingLicenseGridViewAndRecords();
             this.Close();
         }
-
         private void btnNext_Click(object sender, EventArgs e)
         {
             if(uctrlAddNewUser1.CurrentPerson == null)
@@ -261,12 +249,20 @@ namespace DVLD_PresentationLayer.Application_Types
             }
             tabControl1.SelectedTab = tbpApplicationInfo;
         }
-
         private async void btnSave_Click(object sender, EventArgs e)
         {
             if (uctrlAddNewUser1.CurrentPerson == null)
             {
                 _ShowErroMessageBox("No person is selected. Select and try again!", "Invalid Person");
+                return;
+            }
+            
+            var AgeCheckResult = await _CheckPersonAge();
+            if (!AgeCheckResult.IsAgeValid)
+            {
+                _ShowErroMessageBox($"The selected person does not meet the minimum age requirement of " +
+                                    $"{AgeCheckResult.MinimumAgeRequired} years for the selected license class.",
+                                    "Age Requirement Not Met");
                 return;
             }
 
@@ -311,7 +307,6 @@ namespace DVLD_PresentationLayer.Application_Types
                 await ParentForm.RefreshLocalDrivingLicenseGridViewAndRecords();
             }
         }
-
         private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
         {
             if (_Mode == EnMode.NewApplication)
@@ -328,7 +323,6 @@ namespace DVLD_PresentationLayer.Application_Types
 
             }
         }
-
         private async void frmNewLocalDrivingLicenseApplication_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (this.Owner is frmManageLocalDrivingLicenseApplications parentForm)

@@ -240,6 +240,7 @@
             this.Name = "frmLoginScreen";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmLoginScreen_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLoginScreenImage)).EndInit();
