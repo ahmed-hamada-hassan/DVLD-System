@@ -118,18 +118,10 @@ Based on the project files, the following are required:
    - Replace server name, user ID, and password as needed for your environment.
 
 3. **Database Setup:**
-   - Create a database named  in your SQL Server instance
-   - Run the database schema scripts (if provided) to create necessary tables:
-     - 
-     - 
-     - 
-     - 
-     - 
-     - 
-     - 
-     - 
-     - 
-     - Related views (e.g., )
+   3. **Database Setup:**
+   - Create a new, empty database in your SQL Server instance named `DVLD`.
+   - Locate the database script file located at:
+     `DriversAndVehiclesLicensesDepartment (DVLD)\DVLD DataAccessLayer`
 
 4. **Open the Solution:**
    - Open  in Visual Studio 2026 (or your installed version)
