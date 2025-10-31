@@ -9,7 +9,7 @@
 
 ---
 
-## 🏛️ Solution Structure
+## Solution Structure
 
 This solution follows a **3-tier architecture** pattern with clear separation of concerns between data access, business logic, and presentation layers.
 
@@ -96,7 +96,7 @@ This solution follows a **3-tier architecture** pattern with clear separation of
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -118,18 +118,10 @@ Based on the project files, the following are required:
    - Replace server name, user ID, and password as needed for your environment.
 
 3. **Database Setup:**
-   - Create a database named  in your SQL Server instance
-   - Run the database schema scripts (if provided) to create necessary tables:
-     - 
-     - 
-     - 
-     - 
-     - 
-     - 
-     - 
-     - 
-     - 
-     - Related views (e.g., )
+   3. **Database Setup:**
+   - Create a new, empty database in your SQL Server instance named `DVLD`.
+   - Locate the database script file located at:
+     `DriversAndVehiclesLicensesDepartment (DVLD)\DVLD DataAccessLayer`
 
 4. **Open the Solution:**
    - Open  in Visual Studio 2026 (or your installed version)
@@ -145,7 +137,7 @@ Based on the project files, the following are required:
 
 ---
 
-## 💻 How to Use
+## How to Use
 
 ### Running the Application
 
@@ -190,7 +182,7 @@ Based on the project files, the following are required:
 
 ---
 
-## 📋 Additional Notes
+## Additional Notes
 
 * **Database Connectivity:** The application uses ADO.NET with , , and  for data access
 * **Form Patterns:** Most management forms follow a consistent pattern with DataGridView for listing and modal dialogs for add/edit operations
@@ -199,5 +191,3 @@ Based on the project files, the following are required:
 * **Security:** Passwords are stored using hash and salt mechanisms for enhanced security
 
 ---
-
-*This README was auto-generated based on analysis of the DVLD solution structure and source code.*
