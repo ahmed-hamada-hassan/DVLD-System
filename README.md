@@ -9,7 +9,7 @@
 
 ---
 
-## 🏛️ Solution Structure
+## Solution Structure
 
 This solution follows a **3-tier architecture** pattern with clear separation of concerns between data access, business logic, and presentation layers.
 
@@ -96,7 +96,7 @@ This solution follows a **3-tier architecture** pattern with clear separation of
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -137,7 +137,7 @@ Based on the project files, the following are required:
 
 ---
 
-## 💻 How to Use
+## How to Use
 
 ### Running the Application
 
@@ -182,7 +182,7 @@ Based on the project files, the following are required:
 
 ---
 
-## 📋 Additional Notes
+## Additional Notes
 
 * **Database Connectivity:** The application uses ADO.NET with , , and  for data access
 * **Form Patterns:** Most management forms follow a consistent pattern with DataGridView for listing and modal dialogs for add/edit operations
