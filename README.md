@@ -118,8 +118,8 @@ Based on the project files, the following are required:
    - Replace server name, user ID, and password as needed for your environment.
 
 3. **Database Setup:**
-   3. **Database Setup:**
-   This project uses a SQL Server database backup file (`.bak`) located in the `DriversAndVehiclesLicensesDepartment (DVLD)\DVLD DataAccessLayer` directory. You need to restore this backup to your local SQL Server instance.
+   This project uses a SQL Server database backup file (`.bak`) located in the `DriversAndVehiclesLicensesDepartment (DVLD)\DVLD DataAccessLayer` directory.
+   You need to restore this backup to your local SQL Server instance.
 
 **Using SQL Server Management Studio (SSMS):**
 
