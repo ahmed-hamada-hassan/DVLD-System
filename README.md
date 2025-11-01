@@ -119,9 +119,20 @@ Based on the project files, the following are required:
 
 3. **Database Setup:**
    3. **Database Setup:**
-   - Create a new, empty database in your SQL Server instance named `DVLD`.
-   - Locate the database script file located at:
-     `DriversAndVehiclesLicensesDepartment (DVLD)\DVLD DataAccessLayer`
+   This project uses a SQL Server database backup file (`.bak`) located in the `DriversAndVehiclesLicensesDepartment (DVLD)\DVLD DataAccessLayer` directory. You need to restore this backup to your local SQL Server instance.
+
+**Using SQL Server Management Studio (SSMS):**
+
+1.  Open SSMS and connect to your SQL Server instance.
+2.  Right-click on the **Databases** folder in the Object Explorer and select **"Restore Database..."**.
+3.  In the "Restore Database" window, select **"Device"** as the source.
+4.  Click the "..." button to select the backup device.
+5.  In the "Select backup devices" window, click **"Add"**.
+6.  Navigate to the project folder, go to `DriversAndVehiclesLicensesDepartment (DVLD)\DVLD DataAccessLayer`, and select the `.bak` file.
+7.  Click **"OK"** on all open windows to return to the main "Restore Database" window.
+8.  In the **"Database"** field under the "Destination" section, type the name you want for your database, which should be **`DVLD`**.
+9.  (Optional but Recommended) Go to the **"Options"** page from the left-hand menu and check **"Overwrite the existing database (WITH REPLACE)"** if you are restoring over a database with the same name.
+10. Click **"OK"** to begin the restore process.
 
 4. **Open the Solution:**
    - Open  in Visual Studio 2026 (or your installed version)
